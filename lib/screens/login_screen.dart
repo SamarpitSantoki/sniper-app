@@ -23,32 +23,30 @@ class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
-  final authController = Get.put(AuthController());
+  final authController = Get.put(AuthController(), permanent: true);
 
   void validateForm() {
     if (emailController.text.isEmpty) {
       Get.snackbar(
         "Error",
         "Email cannot be empty",
-        margin: const EdgeInsets.symmetric(
-          horizontal: 8,
-          vertical: 16,
-        ),
-        snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
+        
+        colorText: Colors.red,
+        backgroundColor: Colors.red.withOpacity(0.1),
+      );
+    } else if (!emailController.text.isEmail) {
+      Get.snackbar(
+        "Error",
+        "Invalid email",
+        colorText: Colors.red,
+        backgroundColor: Colors.red.withOpacity(0.1),
       );
     } else if (passwordController.text.isEmpty) {
       Get.snackbar(
         "Error",
         "Password cannot be empty",
-        margin: const EdgeInsets.symmetric(
-          horizontal: 8,
-          vertical: 16,
-        ),
-        snackPosition: SnackPosition.TOP,
-        backgroundColor: Colors.red,
-        colorText: Colors.white,
+        colorText: Colors.red,
+        backgroundColor: Colors.red.withOpacity(0.1),
       );
     } else {
 
@@ -108,6 +106,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       color: Colors.white,
                     ),
                     controller: emailController,
+                    
                     keyboardType: TextInputType.emailAddress,
                     decoration: const InputDecoration(
                       prefixIcon: Icon(

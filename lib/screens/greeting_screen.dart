@@ -8,6 +8,7 @@ class GreetingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color.fromRGBO(15, 3, 49, 1),
       body: SafeArea(
         child: Container(
           decoration: const BoxDecoration(
@@ -38,9 +39,8 @@ class GreetingScreen extends StatelessWidget {
                       ),
                     ]),
               ),
-              Lottie.network(
-                fit: BoxFit.scaleDown,
-                'https://assets9.lottiefiles.com/packages/lf20_y8orqkyi.json',
+              Lottie.asset("lib/assets/lottie/greeting.json",
+                  fit: BoxFit.cover
               ),
               const Text(
                 "Learn trading with us",
@@ -103,6 +103,8 @@ class GreetingScreen extends StatelessWidget {
           ),
         ),
       ),
+      bottomNavigationBar:
+          const BottomAppBar(color: Color.fromRGBO(38, 28, 81, 1)),
     );
   }
 }

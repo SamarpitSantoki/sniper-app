@@ -57,6 +57,8 @@ class AuthController extends GetxController {
     accessToken.value = '';
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('accessToken', accessToken.value);
+
+    Get.offAllNamed(RoutesClass.getLoginRoute());
   }
 
   void fetchUser() async {
@@ -93,7 +95,7 @@ class AuthController extends GetxController {
       "wid": wid.value,
     });
 
-    // sniperAllowed.value = response.body == 'verified' ? true : false;
+    sniperAllowed.value = response.body == 'verified' ? true : false;
     print("asdasd${response.body}");
   }
 }

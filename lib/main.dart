@@ -46,6 +46,7 @@ Future<void> main() async {
       title: "VP Financials",
       debugShowCheckedModeBanner: false,
       initialRoute: RoutesClass.getInitialRoute(),
+      themeMode: ThemeMode.dark,
       unknownRoute: GetPage(
         name: '/notfound',
         page: () => const Scaffold(

@@ -53,6 +53,9 @@ Future<void> initializeService() async {
 
       // this will be executed when app is in foreground in separated isolate
       onForeground: onStart,
+      // this will be executed when app is in background in separated isolate
+      // create a future to execute your task
+    
     ),
   );
 
@@ -112,7 +115,6 @@ void onStart(ServiceInstance service) async {
 
   channel.stream.listen(
     (message) async {
-      service.invoke("connected", {"connected": true});
 
       message = jsonDecode(message);
 

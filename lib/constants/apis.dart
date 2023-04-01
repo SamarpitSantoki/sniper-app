@@ -1,5 +1,5 @@
 const String baseUrl = "https://api.vpfinancials.in/api";
-const String socketUrl = "http://192.168.29.189:4444";
+const String socketUrl = "http://15.206.99.131:4444";
 
 const String loginApi = "/login";
 

@@ -21,11 +21,14 @@ class NotificationScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Sniper Notifications'),
+        title: InkWell(
+            onTap: () => authController.logout(),
+            child: const Text('Sniper Notifications')),
         actions: [
           IconButton(
             onPressed: () async {
               notificationController.fetchMessages();
+              authController.verifyConnection();
             },
             icon: const Icon(Icons.refresh),
           ),
