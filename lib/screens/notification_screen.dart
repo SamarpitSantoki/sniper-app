@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:sniper/components/notification_tile.dart';
+import 'package:sniper/controllers/auth_controller.dart';
 import 'package:sniper/controllers/notification_controller.dart';
 
 class NotificationScreen extends StatelessWidget {
@@ -11,10 +12,12 @@ class NotificationScreen extends StatelessWidget {
   final scrollController = ScrollController();
 
   final notificationController = Get.put(NotificationController());
+  final authController = Get.put(AuthController());
 
   @override
   Widget build(BuildContext context) {
     notificationController.fetchMessages();
+    
 
     return Scaffold(
       appBar: AppBar(
@@ -62,7 +65,9 @@ class NotificationScreen extends StatelessWidget {
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
-              : ListView.separated(
+                : Obx(
+                    () => authController.sniperAllowed.value
+                        ? ListView.separated(
                   itemCount: notificationController.notifications.length,
                   separatorBuilder: (context, index) =>
                       const SizedBox(height: 10),
@@ -82,9 +87,16 @@ class NotificationScreen extends StatelessWidget {
                   //   DayTile(),
                   //   DayTile(),
                   // ],
-                ),
-        ),
-      ),
+                          )
+                        : const Text(
+                            'You are not allowed to use Sniper. Please contact your admin.',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 20,
+                            ),
+                          ),
+                  ),
+          )),
     );
   }
 }

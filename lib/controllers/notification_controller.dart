@@ -44,14 +44,20 @@ class NotificationController extends GetxController {
 
   @override
   void onInit() {
-    print("onInit called");
-    print(() async => await _service.isRunning());
     _service.on('update').listen((event) {
       print("update called asd");
       updateMessages(event!['message'], event['current_date']);
     });
 
+    _service.on('id').listen((event) {
+      print("id: called");
+      SharedPreferences.getInstance().then((prefs) {
+        prefs.setString("wid", event!['id']);
+      });
+    });
+
     _service.on('connected').listen((event) {
+      print("connected: called");
       connected.value = event!['connected'];
     });
 

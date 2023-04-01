@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+import 'package:sniper/controllers/auth_controller.dart';
 import 'package:sniper/routes/routes.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -21,6 +22,8 @@ class _LoginScreenState extends State<LoginScreen> {
 
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  final authController = Get.put(AuthController());
 
   void validateForm() {
     if (emailController.text.isEmpty) {
@@ -48,8 +51,10 @@ class _LoginScreenState extends State<LoginScreen> {
         colorText: Colors.white,
       );
     } else {
+
+
+      authController.login(emailController.text, passwordController.text);
       // call controller function here
-      Get.offAllNamed(RoutesClass.getHomeRoute());
     }
   }
 

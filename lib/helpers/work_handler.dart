@@ -8,6 +8,7 @@ import "package:flutter_background_service/flutter_background_service.dart";
 import 'package:flutter/material.dart';
 import "package:flutter_background_service_android/flutter_background_service_android.dart";
 import "package:mixpanel_flutter/mixpanel_flutter.dart";
+import "package:shared_preferences/shared_preferences.dart";
 import "package:web_socket_channel/web_socket_channel.dart";
 
 Future<void> initializeService() async {
@@ -114,6 +115,16 @@ void onStart(ServiceInstance service) async {
       service.invoke("connected", {"connected": true});
 
       message = jsonDecode(message);
+
+      if (message['type'] == "id") {
+        mixpanel.identify(message['id']);
+        mixpanel.track("Opened");
+        mixpanel.flush();
+
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString("wid", message['id']);
+        return;
+      }
 
       // show notification
       AwesomeNotifications().createNotification(
